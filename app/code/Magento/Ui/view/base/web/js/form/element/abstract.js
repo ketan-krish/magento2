@@ -57,6 +57,9 @@ define([
                 '${ $.provider }:${ $.customScope ? $.customScope + "." : ""}data.validate': 'validate',
                 'isUseDefault': 'toggleUseDefault'
             },
+            ignoreTmpls: {
+                value: true
+            },
 
             links: {
                 value: '${ $.provider }:${ $.dataScope }'
@@ -450,6 +453,10 @@ define([
          */
         toggleUseDefault: function (state) {
             this.disabled(state);
+
+            if (this.source && this.hasService()) {
+                this.source.set('data.use_default.' + this.index, Number(state));
+            }
         },
 
         /**
